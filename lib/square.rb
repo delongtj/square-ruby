@@ -1,5 +1,9 @@
+# Libs.
 require 'rest-client'
 require 'hashie'
+
+# Version.
+require 'square/version'
 
 # Data types.
 require 'square/data_type'
@@ -13,6 +17,13 @@ require 'square/payment_itemization'
 require 'square/refund'
 require 'square/tender'
 require 'square/data_types/payment'
+require 'square/data_types/item'
+require 'square/data_types/item_image'
+require 'square/data_types/category'
+require 'square/data_types/item_variation'
+require 'square/data_types/modifier_list'
+require 'square/data_types/modifier_option'
+require 'square/data_types/fee'
 
 # API Resources.
 require 'square/api_resource'
@@ -21,13 +32,11 @@ require 'square/payment'
 require 'square/variation'
 require 'square/webhook'
 
-# Lib.
-require 'square/version'
+
 
 # RestClient.log = Logger.new(STDOUT)
 
 module Square
-
   @api_host = 'https://connect.squareup.com'
   @next_link = nil
 
