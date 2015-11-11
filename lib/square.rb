@@ -34,7 +34,7 @@ require 'square/payment'
 require 'square/variation'
 require 'square/webhook'
 
-# RestClient.log = Logger.new(STDOUT)
+RestClient.log = Logger.new(STDOUT)
 
 module Square
   @api_host = 'https://connect.squareup.com'

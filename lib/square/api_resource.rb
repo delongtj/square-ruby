@@ -18,10 +18,10 @@ module Square
     # Create resource.
     #
     # @param params [Hash] Object params.
-    def self.create(params = {})
+    def self.create(*ids, params)
       request = {
         method: 'POST',
-        endpoint: instance_variable_get('@endpoint_base'),
+        endpoint: self.generate_endpoint_url(*ids),
         payload: params
       }
 
@@ -36,7 +36,7 @@ module Square
     def self.list(params = {})
       request = {
         method: 'GET',
-        endpoint: instance_variable_get('@endpoint_base'),
+        endpoint: self.generate_endpoint_url,
         params: params
       }
 
@@ -63,10 +63,11 @@ module Square
     # Retrieve a resource.
     #
     # @param id [String] ID of the resource to retrieve.
-    def self.retrieve(id)
+    def self.retrieve(id, params)
       request = {
         method: 'GET',
-        endpoint: "#{instance_variable_get('@endpoint_base')}/#{id}"
+        endpoint: self.generate_endpoint_url(nil, id),
+        params: params
       }
 
       response = Square.make_request(request)
@@ -77,10 +78,10 @@ module Square
     # Delete a resource.
     #
     # @param id [String] ID of the resource to delete.
-    def self.delete(id)
+    def self.delete(*ids)
       request = {
         method: 'DELETE',
-        endpoint: "#{instance_variable_get('@endpoint_base')}/#{id}"
+        endpoint: self.generate_endpoint_url(*ids)
       }
 
       response = Square.make_request(request)
