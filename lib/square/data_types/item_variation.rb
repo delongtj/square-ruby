@@ -23,7 +23,7 @@ module Square
       property :pricing_type # ItemVariation.PricingType
 
       # The item variation's price, if any.
-      property :price_money, coerce: Square::Money
+      property :price_money, coerce: Square::DataTypes::Money
 
       # The item variation's SKU, if any.
       property :sku

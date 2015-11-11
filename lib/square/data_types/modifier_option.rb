@@ -9,7 +9,7 @@ module Square
       property :name
 
       # The modifier option's price.
-      property :price_money, coerce: Square::Money
+      property :price_money, coerce: Square::DataTypes::Money
 
       # If true, the modifier option is the default option in a modifier
       # list for which selection_type is SINGLE.
