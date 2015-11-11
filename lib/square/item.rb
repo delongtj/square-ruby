@@ -95,17 +95,5 @@ module Square
     #   request['Authorization'] = Square.request_headers(Square.access_token)[:authorization]
     #   connection.request(request)
     # end
-    #
-    # # Delete this item.
-    # def delete
-    #   Item.delete(self.id)
-    # end
-    #
-    # # Get this item's variation. There should only ever be one.
-    # #
-    # # @return [Hash] First variation.
-    # def variation
-    #   self.variations.first
-    # end
   end
 end

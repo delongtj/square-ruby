@@ -31,25 +31,33 @@ module Square
       property :available_online # boolean
 
       # The item's master image, if any.
-      property :master_image#, coerce: Square::DataTypes::ItemImage
+      property :master_image, coerce: Square::DataTypes::ItemImage
 
       # The category the item belongs to, if any.
-      property :category#, coerce: Square::DataTypes::Category
+      property :category, coerce: Square::DataTypes::Category
 
       # The item's variations.
-      property :variations#, coerce: Array[Square::DataTypes::ItemVariation]
+      property :variations, coerce: Array[Square::DataTypes::ItemVariation]
 
       # The modifier lists that apply to the item, if any.
-      property :modifier_lists#, coerce: Array[Square::DataTypes::ModifierList]
+      property :modifier_lists, coerce: Array[Square::DataTypes::ModifierList]
 
       # The fees that apply to the item, if any.
-      property :fees#, coerce: Array[Square::DataTypes::Fee]
+      property :fees, coerce: Array[Square::DataTypes::Fee]
 
       # Deprecated. This field is not used.
       property :taxable, required: false # boolean
 
       # undocumented
       property :available_for_pickup
+      property :images
+
+      # Get this item's variation. There should only ever be one.
+      #
+      # @return [Square::DataTypes::ItemVariation] First variation.
+      def variation
+        self.variations.first
+      end
     end
   end
 end

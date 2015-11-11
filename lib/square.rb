@@ -17,13 +17,14 @@ require 'square/data_types/payment_itemization'
 require 'square/data_types/refund'
 require 'square/data_types/tender'
 require 'square/data_types/payment'
-require 'square/data_types/item'
+require 'square/data_types/fee'
 require 'square/data_types/item_image'
 require 'square/data_types/category'
 require 'square/data_types/item_variation'
 require 'square/data_types/modifier_list'
 require 'square/data_types/modifier_option'
-require 'square/data_types/fee'
+require 'square/data_types/item'
+
 
 # API Resources.
 require 'square/api_resource'

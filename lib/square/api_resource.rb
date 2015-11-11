@@ -28,8 +28,9 @@ module Square
     #
     # @param id [String] ID of the resource to retrieve.
     def self.retrieve(id)
-      response = Service.make_request(endpoint: "#{instance_variable_get('@endpoint_base')}/#{id}")
+      response = Square.make_request(endpoint: "#{instance_variable_get('@endpoint_base')}/#{id}")
       response = JSON.parse(response)
+      ap response
       @data_type.new(response)
     end
   end
