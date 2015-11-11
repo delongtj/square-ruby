@@ -1,8 +1,23 @@
 require 'rest-client'
+require 'hashie'
+
+require 'square/data_type.rb'
+require 'square/device.rb'
+require 'square/item.rb'
+require 'square/money.rb'
+
+require 'square/payment_itemization.rb'
+require 'square/payment.rb'
+
+require 'square/variation.rb'
+require 'square/version.rb'
+require 'square/webhook.rb'
+
 
 # RestClient.log = Logger.new(STDOUT)
 
 module Square
+  
   @api_host = 'https://connect.squareup.com'
   @next_link = nil
 
