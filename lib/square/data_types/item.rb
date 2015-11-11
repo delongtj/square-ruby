@@ -18,7 +18,8 @@ module Square
       # is present only if an abbreviation other than the default has been set.
       property :abbreviation
 
-      # The color of the item's display label in Square Register, if not the default color.
+      # The color of the item's display label in Square Register, if not the
+      # default color.
       # The default color is 9da2a6.
       property :color # Item.Color
 

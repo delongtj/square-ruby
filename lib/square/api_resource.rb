@@ -75,10 +75,10 @@ module Square
     def self.delete(id)
       request = {
         method: 'DELETE',
-        endpoint: "#{ENDPOINT_BASE}/#{id}"
+        endpoint: "#{instance_variable_get('@endpoint_base')}/#{id}"
       }
 
-      repsonse = Square.make_request(request)
+      response = Square.make_request(request)
       response = JSON.parse(response)
     end
   end
