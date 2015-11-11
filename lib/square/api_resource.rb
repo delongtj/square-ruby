@@ -92,8 +92,8 @@ module Square
 
     # Generate an endpoint for nested resources
     #
-    # @param parent_id [String] ID of the 'parent' object.
-    # @param object_id [String] ID of the 'object'.
+    # @param parent_id [String] ID of the 'parent' object. Optional.
+    # @param object_id [String] ID of the 'object'. Optional.
     #
     # @return [String] Endpoint URL.
     def self.generate_endpoint_url(parent_id = nil, object_id = nil)
