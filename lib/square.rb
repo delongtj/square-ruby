@@ -1,6 +1,8 @@
 # Libs.
 require 'rest-client'
 require 'hashie'
+require 'open-uri'
+require 'net/http/post/multipart'
 
 # Version.
 require 'square/version'

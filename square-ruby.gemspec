@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "hashie", "~> 3.4.3"
   spec.add_runtime_dependency "rest-client", "~> 1.8"
+  spec.add_runtime_dependency "multipart-post", "~> 2.0"
 end
