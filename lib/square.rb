@@ -4,27 +4,25 @@ require 'hashie'
 # Data types.
 require 'square/data_type'
 require 'square/money'
-require 'square/refund'
-require 'square/payment_tax'
-require 'square/payment_item_detail'
+require 'square/device'
 require 'square/payment_discount'
+require 'square/payment_tax'
 require 'square/payment_modifier'
+require 'square/payment_item_detail'
+require 'square/payment_itemization'
+require 'square/refund'
 require 'square/tender'
+require 'square/data_types/payment'
 
+# API Resources.
+require 'square/api_resource'
+require 'square/item'
+require 'square/payment'
+require 'square/variation'
+require 'square/webhook'
 
-require 'square/payment_itemization.rb'
-require 'square/device.rb'
-
-require 'square/item.rb'
-
-
-
-require 'square/payment.rb'
-
-require 'square/variation.rb'
-require 'square/version.rb'
-require 'square/webhook.rb'
-
+# Lib.
+require 'square/version'
 
 # RestClient.log = Logger.new(STDOUT)
 
