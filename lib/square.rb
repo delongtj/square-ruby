@@ -25,7 +25,6 @@ require 'square/data_types/modifier_list'
 require 'square/data_types/modifier_option'
 require 'square/data_types/item'
 
-
 # API Resources.
 require 'square/api_resource'
 require 'square/item'
@@ -33,13 +32,12 @@ require 'square/payment'
 require 'square/variation'
 require 'square/webhook'
 
-
-
 # RestClient.log = Logger.new(STDOUT)
 
 module Square
   @api_host = 'https://connect.squareup.com'
   @next_link = nil
+  @access_token = nil
 
   # RegExp used for parsing Link headers when the API paginates data. I don't
   # care about rel attributes right now because this is the only thing this is
@@ -62,34 +60,44 @@ module Square
   #
   # @return [RestClient::Response]
   def self.make_request(options = {}, &block)
-    custom_headers = options[:headers] || {}
-    headers = request_headers(access_token).merge(custom_headers)
+    if access_token.nil?
+      raise StandardError.new('No access token set.')
+    end
 
-    method = (options[:method] || 'get').downcase.to_sym
+    # Allow passing in a fully formed URL. Default to auto detecting
+    # the merchant ID.
+    # https://docs.connect.squareup.com/api/connect/v1/#navsection-merchant
     merchant = options[:merchant] || 'me'
-    payload = options[:payload] || nil
-    params = options[:params]
-
-    # Allow passing in a fully formed URL.
     url = options[:url] || File.join(api_host, 'v1', merchant, options[:endpoint])
 
+    # Build up the RestClient request object.
     request_params = {
-      method: method,
-      url: url,
-      headers: headers
+      # Allow passing in headers.
+      headers: request_headers(access_token).merge(options[:headers] || {}),
+
+      # Default to a GET request.
+      method: (options[:method] || :get).downcase.to_sym,
+
+      # URL.
+      url: url
     }
 
-    # Create a payload.
+    # Merge in a payload hash.
+    payload = options[:payload] || nil
+
     if payload.present? && payload.respond_to?(:to_json)
       payload = payload.to_json
       request_params.merge!(payload: payload)
     end
 
-    # Merge in params.
+    # Merge in a params hash.
+    params = options[:params] || nil
+
     if params.present? && !params.empty?
       request_params[:headers].merge!(params: params)
     end
 
+    # Make the request.
     response = RestClient::Request.execute(request_params, &block)
 
     # Detect a Link header.
@@ -111,8 +119,6 @@ module Square
 
     self.make_request(url: next_link)
   end
-
-  protected
 
   # Get the request headers.
   #
