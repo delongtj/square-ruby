@@ -19,13 +19,7 @@ module Square
       Variation.new(response)
     end
 
-    # Update a variation.
-    #
-    # @param item_id [String] ID of a Square::Item.
-    # @param id [String] ID of a Square::Variation.
-    # @param data [Hash] Update data.
-    #
-    # @return [Square::Variation]
+    
     def self.update(item_id, id, data)
       response = Square.make_request(
         method: 'PUT',

@@ -10,11 +10,27 @@ module Square
       instance_variable_set('@endpoint_base', base)
     end
 
+    # Create resource.
+    #
+    # @param params [Hash] Object params.
+    def self.create(params = {})
+      request = {
+        method: 'POST',
+        endpoint: instance_variable_get('@endpoint_base'),
+        payload: params
+      }
+
+      response = Square.make_request(request)
+      response = JSON.parse(response)
+      @data_type.new(response)
+    end
+
     # List resource.
     #
     # @param params [Hash] Hash of query params.
     def self.list(params = {})
       request = {
+        method: 'GET',
         endpoint: instance_variable_get('@endpoint_base'),
         params: params
       }
@@ -24,14 +40,46 @@ module Square
       response.map {|record| @data_type.new(record)}
     end
 
+    # Update a resource.
+    #
+    # @param params [Hash] Update data.
+    def self.update(params = {})
+      request = {
+        method: 'PUT',
+        endpoint: 'something',
+        payload: params
+      }
+
+      response = Square.make_request(request)
+      response = JSON.parse(response)
+      @data_type.new(response)
+    end
+
     # Retrieve a resource.
     #
     # @param id [String] ID of the resource to retrieve.
     def self.retrieve(id)
-      response = Square.make_request(endpoint: "#{instance_variable_get('@endpoint_base')}/#{id}")
+      request = {
+        method: 'GET',
+        endpoint: "#{instance_variable_get('@endpoint_base')}/#{id}"
+      }
+
+      response = Square.make_request(request)
       response = JSON.parse(response)
-      ap response
       @data_type.new(response)
+    end
+
+    # Delete a resource.
+    #
+    # @param id [String] ID of the resource to delete.
+    def self.delete(id)
+      request = {
+        method: 'DELETE',
+        endpoint: "#{ENDPOINT_BASE}/#{id}"
+      }
+
+      repsonse = Square.make_request(request)
+      response = JSON.parse(response)
     end
   end
 end
