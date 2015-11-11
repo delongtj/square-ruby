@@ -1,6 +1,7 @@
 module Square
   class DataType < Hashie::Dash
     include Hashie::Extensions::Dash::Coercion
+    include Hashie::Extensions::IndifferentAccess
 
     # List payments.
     # https://docs.connect.squareup.com/api/connect/v1/#get-payments
@@ -8,13 +9,14 @@ module Square
     # @return [Array<Square::Payment>] API response.
     def self.list(options = {})
       request = {
-        endpoint: ENDPOINT_BASE,
+        endpoint: self.endpoint_base,
         params: options
       }
 
       response = Square.make_request(request)
       response = JSON.parse(response)
-      response.map {|record| new(data_type)}
+      # ap response
+      response.map {|record| new(record.deep_symbolize_keys)}
     end
 
     # Get a payment.
@@ -22,7 +24,7 @@ module Square
     #
     # @return [Square::Payment] Payment.
     def self.retrieve(id)
-      response = Service.make_request(endpoint: "#{ENDPOINT_BASE}/#{id}")
+      response = Service.make_request(endpoint: "#{self.endpoint_base}/#{id}")
       response = JSON.parse(response)
       new(response)
     end
