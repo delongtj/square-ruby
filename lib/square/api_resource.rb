@@ -2,12 +2,17 @@ module Square
   class APIResource
     # Set a data_type property for this resource.
     def self.data_type(data_type)
-      instance_variable_set('@data_type', data_type)
+      @data_type = data_type
     end
 
     # Set an endpoint base for this resource.
     def self.endpoint_base(base)
-      instance_variable_set('@endpoint_base', base)
+      @endpoint_base = base
+    end
+
+    # Set a property for nested resources.
+    def self.nested_under(parent)
+      @nested_under = parent
     end
 
     # Create resource.
@@ -43,10 +48,10 @@ module Square
     # Update a resource.
     #
     # @param params [Hash] Update data.
-    def self.update(params = {})
+    def self.update(*ids, params)
       request = {
         method: 'PUT',
-        endpoint: 'something',
+        endpoint: self.generate_endpoint_url(*ids),
         payload: params
       }
 
@@ -80,6 +85,18 @@ module Square
 
       response = Square.make_request(request)
       response = JSON.parse(response)
+    end
+
+    private
+
+    # Generate an endpoint for nested resources
+    #
+    # @param parent_id [String] ID of the 'parent' object.
+    # @param object_id [String] ID of the 'object'.
+    #
+    # @return [String] Endpoint URL.
+    def self.generate_endpoint_url(parent_id = nil, object_id = nil)
+      File.join([@nested_under, parent_id, @endpoint_base, object_id].compact)
     end
   end
 end
