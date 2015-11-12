@@ -13,11 +13,15 @@ module Square
       property :rate
 
       # Whether the tax is an ADDITIVE tax or an INCLUSIVE tax.
-      property :inclusion_type # Fee.InclusionType
+      property :inclusion_type, required: true, coerce: -> (value) { self.thing(value) }
 
       # The ID of the tax, if available. Taxes applied in older versions of
       # Square Register might not have an ID.
       property :fee_id
+
+      def self.thing(value)
+        ['ADDITIVE', 'INCLUSIVE'].include?(value) ? value : nil
+      end
     end
   end
 end

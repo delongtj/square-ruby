@@ -6,7 +6,7 @@ module Square
       property :name
 
       # The quantity of the item purchased. This can be a decimal value.
-      property :quantity # number
+      property :quantity, coerce: Integer
 
       # The type of purchase that the itemization represents,
       # such as an ITEM or CUSTOM_AMOUNT.
