@@ -41,6 +41,25 @@ TODO
 
 `items = Square::Item.list`
 
+#### Paging
+
+Paging only works for `APIResource#list`.
+
+```
+resp = Square::Payment.list({limit: 10})
+resp.each {|p| puts p.id }
+
+puts "got #{resp.count}. getting more"
+
+while resp.has_more?
+  puts "has more"
+  more = resp.more
+  more.each {|p| puts p.id }
+end
+
+puts 'done'
+```
+
 ## Development
 
 TODO
