@@ -101,7 +101,7 @@ module Square
         when 0 then @endpoint_base
         when 1 then File.join(@endpoint_base, args[0])
       else
-        File.join(@nested_under, args[0], @endpoint_base, args[1])
+        File.join([@nested_under, args[0], @endpoint_base, args[1]].compact)
       end
 
 
