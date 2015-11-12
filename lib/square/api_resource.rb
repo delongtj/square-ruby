@@ -15,6 +15,36 @@ module Square
       @nested_under = parent
     end
 
+    # List resource.
+    #
+    # @param params [Hash] Hash of query params.
+    def self.list(params = {})
+      request = {
+        method: 'GET',
+        endpoint: self.generate_endpoint_url,
+        params: params
+      }
+
+      # The list endpoint makes use of the ListResponse to handle paging.
+      response = Square.make_request(request)
+      Square::ListResponse.new(response, @data_type)
+    end
+
+    # Retrieve a resource.
+    #
+    # @param id [String] ID of the resource to retrieve.
+    def self.retrieve(id, params)
+      request = {
+        method: 'GET',
+        endpoint: self.generate_endpoint_url(nil, id),
+        params: params
+      }
+
+      response = Square.make_request(request)
+      response = JSON.parse(response)
+      @data_type.new(response)
+    end
+
     # Create resource.
     #
     # @param params [Hash] Object params.
@@ -30,21 +60,6 @@ module Square
       @data_type.new(response)
     end
 
-    # List resource.
-    #
-    # @param params [Hash] Hash of query params.
-    def self.list(params = {})
-      request = {
-        method: 'GET',
-        endpoint: self.generate_endpoint_url,
-        params: params
-      }
-
-      response = Square.make_request(request)
-      response = JSON.parse(response)
-      response.map {|record| @data_type.new(record)}
-    end
-
     # Update a resource.
     #
     # @param params [Hash] Update data.
@@ -53,21 +68,6 @@ module Square
         method: 'PUT',
         endpoint: self.generate_endpoint_url(*ids),
         payload: params
-      }
-
-      response = Square.make_request(request)
-      response = JSON.parse(response)
-      @data_type.new(response)
-    end
-
-    # Retrieve a resource.
-    #
-    # @param id [String] ID of the resource to retrieve.
-    def self.retrieve(id, params)
-      request = {
-        method: 'GET',
-        endpoint: self.generate_endpoint_url(nil, id),
-        params: params
       }
 
       response = Square.make_request(request)

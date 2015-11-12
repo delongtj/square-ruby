@@ -28,6 +28,7 @@ require 'square/data_types/modifier_option'
 require 'square/data_types/item'
 
 # API Resources.
+require 'square/list_response'
 require 'square/api_resource'
 require 'square/item'
 require 'square/payment'
@@ -38,16 +39,10 @@ RestClient.log = Logger.new(STDOUT)
 
 module Square
   @api_host = 'https://connect.squareup.com'
-  @next_link = nil
   @access_token = nil
 
-  # RegExp used for parsing Link headers when the API paginates data. I don't
-  # care about rel attributes right now because this is the only thing this is
-  # used for.
-  LINK_REGEXP = /^<([ -~]+)>;/i
-
   class << self
-    attr_accessor :api_host, :access_token, :next_link
+    attr_accessor :api_host, :access_token
   end
 
   # Make an API call to Square.
@@ -99,27 +94,8 @@ module Square
       request_params[:headers].merge!(params: params)
     end
 
-    # Make the request.
-    response = RestClient::Request.execute(request_params, &block)
-
-    # Detect a Link header.
-    if response.headers[:link].present?
-      match = LINK_REGEXP.match(response.headers[:link])
-      self.next_link = match.captures[0]
-    else
-      self.next_link = nil
-    end
-
-    response
-  end
-
-  # Get the next page, if available.
-  def self.next
-    if next_link.nil?
-      return nil
-    end
-
-    self.make_request(url: next_link)
+    # Perform the request.
+    RestClient::Request.execute(request_params, &block)
   end
 
   # Get the request headers.
