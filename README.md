@@ -6,7 +6,6 @@ TODO:
 
 - [ ] Add all data types.  
 - [ ] Add all API resources.
-- [ ] Better pagination handling.
 - [ ] OAuth
 - [ ] Batching
 - [ ] Handle multi location
@@ -40,6 +39,8 @@ TODO
 ...but quickly, use one of the methods on one of the `APIResource` subclasses, e.g.
 
 `items = Square::Item.list`
+
+You'll now have an array of `Square::DataType::Item`s.
 
 #### Paging
 
