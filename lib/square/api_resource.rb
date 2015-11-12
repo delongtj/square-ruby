@@ -48,11 +48,13 @@ module Square
     # Create resource.
     #
     # @param params [Hash] Object params.
-    def self.create(*ids, params = {})
+
+    def self.create(params)
+
       request = {
-        method: 'POST',
-        endpoint: self.generate_endpoint_url(*ids),
-        payload: params
+        method:   'POST',
+        endpoint: self.generate_endpoint_url,
+        payload:  params
       }
 
       response = Square.make_request(request)
@@ -96,8 +98,15 @@ module Square
     # @param object_id [String] ID of the 'object'. Optional.
     #
     # @return [String] Endpoint URL.
-    def self.generate_endpoint_url(parent_id = nil, object_id = nil)
-      File.join([@nested_under, parent_id, @endpoint_base, object_id].compact)
+    def self.generate_endpoint_url(*args)
+      case args.size
+        when 0 then @endpoint_base
+        when 1 then File.join(@endpoint_base, args[0])
+      else
+        File.join(@nested_under, args[0], @endpoint_base, args[1])
+      end
+
+
     end
   end
 end
