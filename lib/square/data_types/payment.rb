@@ -81,6 +81,7 @@ module Square
       property :gross_sales_money
       property :swedish_rounding_money
       property :net_sales_money
+      property :extensions
     end
   end
 end
