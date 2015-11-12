@@ -48,9 +48,7 @@ module Square
     # Create resource.
     #
     # @param params [Hash] Object params.
-
     def self.create(params)
-
       request = {
         method:   'POST',
         endpoint: self.generate_endpoint_url,
