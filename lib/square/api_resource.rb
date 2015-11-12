@@ -33,7 +33,7 @@ module Square
     # Retrieve a resource.
     #
     # @param id [String] ID of the resource to retrieve.
-    def self.retrieve(id, params)
+    def self.retrieve(id, params = {})
       request = {
         method: 'GET',
         endpoint: self.generate_endpoint_url(nil, id),
@@ -48,7 +48,7 @@ module Square
     # Create resource.
     #
     # @param params [Hash] Object params.
-    def self.create(*ids, params)
+    def self.create(*ids, params = {})
       request = {
         method: 'POST',
         endpoint: self.generate_endpoint_url(*ids),
