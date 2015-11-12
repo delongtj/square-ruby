@@ -7,6 +7,9 @@ require 'net/http/post/multipart'
 # Version.
 require 'square/version'
 
+# Extensions.
+require 'square/hashie_extensions/enum'
+
 # Data types.
 require 'square/data_type'
 require 'square/data_types/money'

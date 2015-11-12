@@ -50,12 +50,12 @@ module Square
       !@next_link.nil?
     end
 
+    private
+
     # Pass through methods to the original response object.
     def method_missing(name, *args, &block)
       @response.send(name, *args, &block)
     end
-
-    private
 
     # Parse a response.
     #
