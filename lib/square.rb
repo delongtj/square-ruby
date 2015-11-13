@@ -98,6 +98,61 @@ module Square
     RestClient::Request.execute(request_params, &block)
   end
 
+  def self.post(path, params, &block)
+    request('POST', path, params, &block)
+  end
+
+  def self.put(path, params, &block)
+    request('PUT', path, params, &block)
+  end
+
+  # {
+  #   method: "POST",
+  #   path: "categories",
+  #   body: {
+  #     "name": "Beverages"
+  #   }
+  # }
+  def self.batch(requests = [{}], options = {}, &block)
+    merchant = options[:merchant] || 'me'
+
+    requests = requests.map {|request|
+      path = request.delete(:path)
+      request[:relative_path] = File.join('/', 'v1', merchant, path)
+      request[:access_token]  = access_token
+      request[:request_id]    ||= SecureRandom.uuid
+      request
+    }
+
+    request_params = {
+      headers: request_headers(access_token),
+      method: :post,
+      url: File.join(api_host, 'v1', 'batch'),
+      payload: {
+        requests: requests
+      }.to_json
+    }
+
+
+    begin
+      response = RestClient::Request.execute(request_params, &block)
+      JSON.parse(response)
+    rescue RestClient::Exception => e
+      puts e.http_body
+      raise e
+    end
+  end
+
+  def self.request(method, path, params, &block)
+    begin
+      response = make_request({method: method, endpoint: path, payload: params}, &block)
+      JSON.parse(response)
+    rescue RestClient::Exception => e
+      puts e.http_body
+      raise e
+    end
+  end
+
   # Get the request headers.
   #
   # @param [String] Square access token.

@@ -26,7 +26,7 @@ module Square
       begin
         ::JSON.parse(@response)
       rescue ::Exception => e
-        ap e.message
+        puts e.message
         e
       end
     end

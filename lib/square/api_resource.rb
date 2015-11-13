@@ -33,7 +33,7 @@ module Square
     # Retrieve a resource.
     #
     # @param id [String] ID of the resource to retrieve.
-    def self.retrieve(id, params = {})
+    def self.retrieve(id, params)
       request = {
         method: 'GET',
         endpoint: self.generate_endpoint_url(nil, id),
@@ -48,30 +48,28 @@ module Square
     # Create resource.
     #
     # @param params [Hash] Object params.
-    def self.create(params)
-      request = {
-        method:   'POST',
-        endpoint: self.generate_endpoint_url,
-        payload:  params
-      }
+    def self.create(params, parent_id = nil)
+      path = @endpoint_base
+      if parent_id
+        path = File.join(@nested_under, parent_id, path)
+      end
 
-      response = Square.make_request(request)
-      response = JSON.parse(response)
+      response = Square.post(path, params)
+
       @data_type.new(response)
     end
 
     # Update a resource.
     #
     # @param params [Hash] Update data.
-    def self.update(*ids, params)
-      request = {
-        method: 'PUT',
-        endpoint: self.generate_endpoint_url(*ids),
-        payload: params
-      }
+    def self.update(params, id, parent_id = nil)
+      if parent_id
+        path = File.join(@nested_under, parent_id, @endpoint_base, id)
+      else
+        path = File.join(@endpoint_base, id)
+      end
 
-      response = Square.make_request(request)
-      response = JSON.parse(response)
+      response = Square.put(path, params)
       @data_type.new(response)
     end
 
