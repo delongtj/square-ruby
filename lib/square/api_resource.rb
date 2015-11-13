@@ -33,7 +33,7 @@ module Square
     # Retrieve a resource.
     #
     # @param id [String] ID of the resource to retrieve.
-    def self.retrieve(id, params)
+    def self.retrieve(id, params = {})
       request = {
         method: 'GET',
         endpoint: self.generate_endpoint_url(nil, id),
@@ -101,8 +101,6 @@ module Square
       else
         File.join([@nested_under, args[0], @endpoint_base, args[1]].compact)
       end
-
-
     end
   end
 end

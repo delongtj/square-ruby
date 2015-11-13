@@ -34,9 +34,10 @@ require 'square/list_response'
 require 'square/api_resource'
 require 'square/item'
 require 'square/payment'
+require 'square/refund'
+require 'square/settlement'
 require 'square/variation'
 require 'square/webhook'
-require 'square/settlement'
 
 RestClient.log = Logger.new(STDOUT)
 
