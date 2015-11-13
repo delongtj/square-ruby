@@ -26,6 +26,8 @@ require 'square/data_types/item_variation'
 require 'square/data_types/modifier_list'
 require 'square/data_types/modifier_option'
 require 'square/data_types/item'
+require 'square/data_types/settlement_entry'
+require 'square/data_types/settlement'
 
 # API Resources.
 require 'square/list_response'
@@ -34,6 +36,7 @@ require 'square/item'
 require 'square/payment'
 require 'square/variation'
 require 'square/webhook'
+require 'square/settlement'
 
 RestClient.log = Logger.new(STDOUT)
 
