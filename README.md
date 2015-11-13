@@ -6,8 +6,8 @@ TODO:
 
 - [ ] Add all data types.  
 - [ ] Add all API resources.
-- [ ] OAuth
-- [ ] Batching
+- [ ] OAuth  
+- [x] Batching
 - [ ] Handle multi location
 - [ ] Employee management
 - [ ] Register API?
