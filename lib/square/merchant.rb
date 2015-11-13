@@ -3,8 +3,9 @@ module Square
   class Merchant < APIResource
     data_type Square::DataTypes::Merchant
 
-    def self.retrieve(merchant_id = 'me')
-      Square.get('')
+    def self.retrieve(merchant_id = nil)
+      response = Square.get(merchant_id)
+      @data_type.new(response)
     end
   end
 end

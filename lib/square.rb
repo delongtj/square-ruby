@@ -77,7 +77,8 @@ module Square
     # the merchant ID.
     # https://docs.connect.squareup.com/api/connect/v1/#navsection-merchant
     merchant = options[:merchant] || 'me'
-    url = options[:url] || File.join([api_host, 'v1', merchant, options[:endpoint]].compact)
+    path_args = [api_host, 'v1', merchant, options[:endpoint]].compact
+    url = options[:url] || File.join(path_args)
 
     # Build up the RestClient request object.
     request_params = {
