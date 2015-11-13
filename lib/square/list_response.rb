@@ -40,7 +40,7 @@ module Square
       end
 
       @response = Square.make_request(url: @next_link)
-      parse_response
+      self.class.new(@response, @data_type)
     end
 
     # Check if there are more pages.
