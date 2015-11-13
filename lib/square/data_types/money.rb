@@ -25,12 +25,11 @@ module Square
       #
       # @return [Square::DataTypes::Money]
       def initialize(*args)
-        # Should this really even have a default?
-        code = args[1] || 'USD'
-
         if args.count == 1 && args.first.is_a?(Hash)
           data = args.first
         else
+          # Should this really even have a default?
+          code = args[1] || 'USD'
           data = {amount: args[0], currency_code: code}
         end
 
