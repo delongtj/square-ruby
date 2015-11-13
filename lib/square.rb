@@ -28,11 +28,17 @@ require 'square/data_types/modifier_option'
 require 'square/data_types/item'
 require 'square/data_types/settlement_entry'
 require 'square/data_types/settlement'
+require 'square/data_types/coordinates'
+require 'square/data_types/global_address'
+require 'square/data_types/phone_number'
+require 'square/data_types/merchant_location_details'
+require 'square/data_types/merchant'
 
 # API Resources.
 require 'square/list_response'
 require 'square/api_resource'
 require 'square/item'
+require 'square/merchant'
 require 'square/payment'
 require 'square/refund'
 require 'square/settlement'
@@ -61,6 +67,8 @@ module Square
   #
   # @return [RestClient::Response]
   def self.make_request(options = {}, &block)
+    ap options
+
     if access_token.nil?
       raise StandardError.new('No access token set.')
     end
@@ -69,7 +77,7 @@ module Square
     # the merchant ID.
     # https://docs.connect.squareup.com/api/connect/v1/#navsection-merchant
     merchant = options[:merchant] || 'me'
-    url = options[:url] || File.join(api_host, 'v1', merchant, options[:endpoint])
+    url = options[:url] || File.join([api_host, 'v1', merchant, options[:endpoint]].compact)
 
     # Build up the RestClient request object.
     request_params = {
@@ -100,6 +108,10 @@ module Square
 
     # Perform the request.
     RestClient::Request.execute(request_params, &block)
+  end
+
+  def self.get(path, params = nil, &block)
+    request('GET', path, params, &block)
   end
 
   def self.post(path, params, &block)
