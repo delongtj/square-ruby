@@ -37,6 +37,7 @@ require 'square/data_types/merchant'
 # API Resources.
 require 'square/list_response'
 require 'square/api_resource'
+require 'square/category'
 require 'square/item'
 require 'square/merchant'
 require 'square/payment'
