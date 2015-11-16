@@ -75,22 +75,32 @@ module Square
       raise StandardError.new('No access token set.')
     end
 
-    # Allow passing in a fully formed URL. Default to auto detecting
-    # the merchant ID.
-    # https://docs.connect.squareup.com/api/connect/v1/#navsection-merchant
-    merchant = options[:merchant] || 'me'
-    path_args = [api_host, 'v1', merchant, options[:endpoint]].compact
-    url = options[:url] || File.join(path_args)
+    # Default to a GET request.
+    method = (options[:method] || :get).downcase.to_sym
+
+    # Allow passing in a fully formed URL.
+    if !options[:url].nil?
+      url = options[:url]
+    else
+      merchant = options[:merchant] || 'me'
+
+      # Special handling of the merchant param.
+      if !options[:params].nil? && !options[:params][:merchant].nil?
+        merchant = options[:params].delete(:merchant)
+      end
+
+      if !options[:payload].nil? && !options[:payload][:merchant].nil?
+        merchant = options[:payload].delete(:merchant)
+      end
+
+      path_args = [api_host, 'v1', merchant, options[:endpoint]].compact
+      url = File.join(path_args)
+    end
 
     # Build up the RestClient request object.
     request_params = {
-      # Allow passing in headers.
       headers: request_headers(access_token).merge(options[:headers] || {}),
-
-      # Default to a GET request.
-      method: (options[:method] || :get).downcase.to_sym,
-
-      # URL.
+      method: method,
       url: url
     }
 

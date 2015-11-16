@@ -12,7 +12,7 @@ module Square
     # @param response [RestClient::Response]
     # @param data_type [Square::DataType] Data type to new up records.
     #
-    # @return [self] with parsed records.
+    # @return [ListResponse]
     def initialize(response, data_type)
       @response = response
       @data_type = data_type
