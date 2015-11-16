@@ -67,8 +67,6 @@ module Square
   #
   # @return [RestClient::Response]
   def self.make_request(options = {}, &block)
-    ap options
-
     if access_token.nil?
       raise StandardError.new('No access token set.')
     end
