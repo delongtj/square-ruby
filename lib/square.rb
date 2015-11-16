@@ -33,11 +33,13 @@ require 'square/data_types/global_address'
 require 'square/data_types/phone_number'
 require 'square/data_types/merchant_location_details'
 require 'square/data_types/merchant'
+require 'square/data_types/discount'
 
 # API Resources.
 require 'square/list_response'
 require 'square/api_resource'
 require 'square/category'
+require 'square/discount'
 require 'square/item'
 require 'square/merchant'
 require 'square/payment'
