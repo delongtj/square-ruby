@@ -10,7 +10,8 @@ module Square
           params: params
         }
 
-        response = Square.get(request)
+        response = Square.make_request(request)
+        response = JSON.parse(response)
         @data_type.new(response)
       end
     end
