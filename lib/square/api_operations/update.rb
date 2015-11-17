@@ -14,7 +14,7 @@ module Square
         request = {
           method: 'PUT',
           endpoint: self.generate_endpoint_url(id, parent_id),
-          params: params
+          payload: params
         }
 
         response = Square.make_request(request)
