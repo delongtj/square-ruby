@@ -3,15 +3,21 @@ module Square
     module Create
       # Create resource.
       #
-      # @param params [Hash] Object params.
-      def create(params, parent_id = nil)
-        path = @endpoint_base
+      # @param parent_id [String] ID of the 'parent' to update. Optional.
+      # @param params [Hash] Payload. Optional.
+      #
+      # @return [DataType]
+      def create(*args, params)
+        parent_id = args
 
-        if parent_id
-          path = File.join(@nested_under, parent_id, path)
-        end
+        request = {
+          method: 'POST',
+          endpoint: self.generate_endpoint_url(nil, parent_id),
+          payload: params
+        }
 
-        response = Square.post(path, params)
+        response = Square.make_request(request)
+        response = JSON.parse(response)
         @data_type.new(response)
       end
     end

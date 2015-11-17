@@ -23,21 +23,15 @@ module Square
 
     private
 
-    # Generate an endpoint for nested resources
+    # Generate an endpoint based on provided arguments.
     #
-    # @param parent_id [String] ID of the 'parent' object. Optional.
-    # @param object_id [String] ID of the 'object'. Optional.
+    # @param id [String] Resource ID. Optional.
+    # @param parent_id [String] ID of the 'parent' resource. Optional.
     #
     # @return [String] Endpoint URL.
     def self.generate_endpoint_url(*args)
-      args = args.compact
-
-      case args.size
-        when 0 then @endpoint_base
-        when 1 then File.join(@endpoint_base, args[0])
-      else
-        File.join([@nested_under, args[0], @endpoint_base, args[1]].compact)
-      end
+      id, parent_id = args
+      File.join([@nested_under, parent_id, @endpoint_base, id].compact)
     end
   end
 end

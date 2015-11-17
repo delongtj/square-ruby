@@ -6,23 +6,14 @@ module Square
       # @param id [String] ID of the resource to update.
       # @param parent_id [String] ID of the 'parent' to update. Optional.
       # @param params [Hash] Payload. Optional.
-      def update(*args)
-        # Extract args.
-        case args.count
-          when 3
-            id, parent_id, params = args
-          when 2
-            id, params = args
-          else
-            raise StandardError.new('Unknown number of arguments.')
-        end
-
-        # Build the endpoint.
-        endpoint = File.join([@nested_under, parent_id, @endpoint_base, id].compact)
+      #
+      # @return [DataType]
+      def update(*args, params)
+        id, parent_id = args
 
         request = {
           method: 'PUT',
-          endpoint: endpoint,
+          endpoint: self.generate_endpoint_url(id, parent_id),
           params: params
         }
 

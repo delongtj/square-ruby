@@ -5,6 +5,5 @@ module Square
     endpoint_base 'variations'
     nested_under 'items'
     data_type Square::DataTypes::ItemVariation
-
   end
 end

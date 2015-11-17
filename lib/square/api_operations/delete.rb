@@ -3,11 +3,17 @@ module Square
     module Delete
       # Delete a resource.
       #
-      # @param id [String] ID of the resource to delete.
-      def delete(params, object_id, parent_id = nil)
+      # @param id [String] ID of the resource to update.
+      # @param parent_id [String] ID of the 'parent' to update. Optional.
+      # @param params [Hash] Payload. Optional.
+      #
+      # @return [#to_json]
+      def delete(*args, params)
+        id, parent_id = args
+
         request = {
           method: 'DELETE',
-          endpoint: self.generate_endpoint_url(object_id, parent_id),
+          endpoint: self.generate_endpoint_url(id, parent_id),
           payload: params
         }
 

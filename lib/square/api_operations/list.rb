@@ -4,7 +4,7 @@ module Square
       # List resource.
       #
       # @param params [Hash] Hash of query params.
-      def list(params = {})
+      def list(params)
         request = {
           method: 'GET',
           endpoint: self.generate_endpoint_url,
