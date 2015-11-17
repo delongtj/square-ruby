@@ -10,7 +10,7 @@ module Square
 
       # The rate of the fee, as a string representation of a decimal number.
       # A value of 0.07 corresponds to a rate of 7%.
-      property :rate
+      property :rate, coerce: Float
 
       # Forthcoming.
       property :calculation_phase # Fee.CalculationPhase
