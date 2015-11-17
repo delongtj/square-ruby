@@ -130,36 +130,6 @@ module Square
     RestClient::Request.execute(request_params, &block)
   end
 
-  # Make a GET request.
-  #
-  # @param path [String] URL to request.
-  # @param params [Hash, nil] Hash of URL params. Defaults to nil.
-  #
-  # @return parsed response.
-  def self.get(path, params = nil, &block)
-    request('GET', path, params, &block)
-  end
-
-  # Make a POST request.
-  #
-  # @param path [String] URL to request.
-  # @param params [Hash, nil] Hash of URL params. Defaults to nil.
-  #
-  # @return parsed response.
-  def self.post(path, params, &block)
-    request('POST', path, params, &block)
-  end
-
-  # Make a PUT request.
-  #
-  # @param path [String] URL to request.
-  # @param params [Hash, nil] Hash of URL params. Defaults to nil.
-  #
-  # @return parsed response.
-  def self.put(path, params, &block)
-    request('PUT', path, params, &block)
-  end
-
   # {
   #   method: "POST",
   #   path: "categories",
@@ -189,23 +159,6 @@ module Square
 
     begin
       response = RestClient::Request.execute(request_params, &block)
-      JSON.parse(response)
-    rescue RestClient::Exception => e
-      puts e.http_body
-      raise e
-    end
-  end
-
-  # Make a request and get the parsed response back..
-  #
-  # @param method [#to_s] HTTP method.
-  # @param path [String] URL to request.
-  # @param params [Hash, nil] Hash of URL params. Defaults to nil.
-  #
-  # @return parsed response.
-  def self.request(method, path, params, &block)
-    begin
-      response = make_request({method: method, endpoint: path, payload: params}, &block)
       JSON.parse(response)
     rescue RestClient::Exception => e
       puts e.http_body
