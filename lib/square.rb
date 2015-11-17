@@ -35,8 +35,14 @@ require 'square/data_types/merchant_location_details'
 require 'square/data_types/merchant'
 require 'square/data_types/discount'
 
-# API Resources.
+# API Operations.
 require 'square/list_response'
+require 'square/api_operations/list'
+require 'square/api_operations/retrieve'
+require 'square/api_operations/create'
+require 'square/api_operations/update'
+
+# API Resources.
 require 'square/api_resource'
 require 'square/category'
 require 'square/discount'
