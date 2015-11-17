@@ -41,6 +41,7 @@ require 'square/api_operations/list'
 require 'square/api_operations/retrieve'
 require 'square/api_operations/create'
 require 'square/api_operations/update'
+require 'square/api_operations/delete'
 
 # API Resources.
 require 'square/api_resource'

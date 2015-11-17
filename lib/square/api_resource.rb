@@ -4,6 +4,7 @@ module Square
     extend Square::APIOperations::Retrieve
     extend Square::APIOperations::Create
     extend Square::APIOperations::Update
+    extend Square::APIOperations::Delete
 
     # Set a data_type property for this resource.
     def self.data_type(data_type)
@@ -20,19 +21,6 @@ module Square
       @nested_under = parent
     end
 
-    # Delete a resource.
-    #
-    # @param id [String] ID of the resource to delete.
-    def self.delete(*ids)
-      request = {
-        method: 'DELETE',
-        endpoint: self.generate_endpoint_url(*ids)
-      }
-
-      response = Square.make_request(request)
-      response = JSON.parse(response)
-    end
-
     private
 
     # Generate an endpoint for nested resources
@@ -42,6 +30,8 @@ module Square
     #
     # @return [String] Endpoint URL.
     def self.generate_endpoint_url(*args)
+      args = args.compact
+
       case args.size
         when 0 then @endpoint_base
         when 1 then File.join(@endpoint_base, args[0])
