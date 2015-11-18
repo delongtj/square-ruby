@@ -1,7 +1,7 @@
 shared_examples 'a listable resource' do
-  describe 'thing' do
+  describe '.list' do
     it 'shoud work' do
-      expect(true).to eq true
+      expect(subject).to respond_to :list
     end
   end
 end
