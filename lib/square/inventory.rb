@@ -4,8 +4,24 @@ module Square
     extend Square::APIOperations::List
 
     endpoint_base 'inventory'
+    data_type Square::DataTypes::InventoryEntry
 
-    def self.adjust
+    # Adjust inventory for a varation.
+    #
+    # @param variation_id [String] Variation ID.
+    # @param params [Hash] Params hash. Optional.
+    #
+    # @return [Square::DataType]
+    def self.adjust(variation_id, params = {})
+      request = {
+        method: 'POST',
+        endpoint: self.generate_endpoint_url(variation_id),
+        payload: params
+      }
+
+      response = Square.make_request(request)
+      response = JSON.parse(response)
+      @data_type.new(response)
     end
   end
 end
