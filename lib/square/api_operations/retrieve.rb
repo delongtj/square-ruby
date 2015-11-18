@@ -9,7 +9,7 @@ module Square
       # @return [Square::DataType]
       def retrieve(id, params = {})
         response = Square.make_request(
-          endpoint: self.generate_endpoint_url(nil, id),
+          endpoint: self.generate_endpoint_url(id),
           params: params
         )
 

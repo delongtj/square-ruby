@@ -35,6 +35,7 @@ require 'square/data_types/merchant_location_details'
 require 'square/data_types/merchant'
 require 'square/data_types/discount'
 require 'square/data_types/inventory_entry'
+require 'square/data_types/bank_account'
 
 # API Operations.
 require 'square/list_response'
@@ -47,6 +48,7 @@ require 'square/api_operations/delete'
 # API Resources.
 require 'square/api_resource'
 require 'square/category'
+require 'square/bank_accounts'
 require 'square/discount'
 require 'square/item'
 require 'square/merchant'
