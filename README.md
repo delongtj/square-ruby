@@ -1,5 +1,7 @@
 # Square Connect API
 
+[![Code Climate](https://codeclimate.com/github/giantmachines/square-ruby/badges/gpa.svg)](https://codeclimate.com/github/giantmachines/square-ruby) [![Test Coverage](https://codeclimate.com/github/giantmachines/square-ruby/badges/coverage.svg)](https://codeclimate.com/github/giantmachines/square-ruby/coverage)
+
 The Square Connect API gem provides access to the Square Connect API.
 
 TODO:
