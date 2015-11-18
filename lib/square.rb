@@ -150,7 +150,7 @@ module Square
     begin
       JSON.parse(response, symbolize_names: true)
     rescue RestClient::Exception => e
-      puts e.http_body.inspect
+      Logger.new(STDOUT).error(e.http_body)
       raise e
     end
   end
@@ -186,7 +186,7 @@ module Square
       response = RestClient::Request.execute(request_params, &block)
       JSON.parse(response)
     rescue RestClient::Exception => e
-      puts e.http_body
+      Logger.new(STDOUT).error(e.http_body)
       raise e
     end
   end
