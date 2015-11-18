@@ -1,18 +1,42 @@
 module Square
   class APIResource
     # Set a data_type property for this resource.
-    def self.data_type(data_type)
-      @data_type = data_type
+    #
+    # @param data_type [Square::DataType] Data type. Optional.
+    #
+    # @return [Square::DataType]
+    def self.data_type(data_type = nil)
+      if !data_type.nil?
+        @data_type = data_type
+      end
+
+      @data_type
     end
 
     # Set an endpoint base for this resource.
-    def self.endpoint_base(base)
-      @endpoint_base = base
+    #
+    # @param base [String] API endpoint. Optional.
+    #
+    # @return [String]
+    def self.endpoint_base(base = nil)
+      if !base.nil?
+        @endpoint_base = base
+      end
+
+      @endpoint_base
     end
 
     # Set a property for nested resources.
-    def self.nested_under(parent)
-      @nested_under = parent
+    #
+    # @param parent [String] API 'parent' endpoint. Optional.
+    #
+    # @return [String]
+    def self.nested_under(parent = nil)
+      if !parent.nil?
+        @nested_under = parent
+      end
+
+      @nested_under
     end
 
     private

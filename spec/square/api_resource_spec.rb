@@ -5,13 +5,9 @@ describe Square::APIResource do
     it 'should should assign the data_type class variable' do
       class Test < Square::APIResource
         data_type 'type'
-
-        def self.get_type
-          @data_type
-        end
       end
 
-      expect(Test.get_type).to eq 'type'
+      expect(Test.data_type).to eq 'type'
     end
   end
 
@@ -19,13 +15,9 @@ describe Square::APIResource do
     it 'should should assign the endpoint_base class variable' do
       class Test < Square::APIResource
         endpoint_base 'endpoint'
-
-        def self.get_endpoint_base
-          @endpoint_base
-        end
       end
 
-      expect(Test.get_endpoint_base).to eq 'endpoint'
+      expect(Test.endpoint_base).to eq 'endpoint'
     end
   end
 
@@ -33,13 +25,9 @@ describe Square::APIResource do
     it 'should should assign the class variable' do
       class Test < Square::APIResource
         nested_under 'resource'
-
-        def self.get_nested_under
-          @nested_under
-        end
       end
 
-      expect(Test.get_nested_under).to eq 'resource'
+      expect(Test.nested_under).to eq 'resource'
     end
   end
 

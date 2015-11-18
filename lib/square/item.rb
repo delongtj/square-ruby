@@ -7,7 +7,7 @@ module Square
     extend Square::APIOperations::Update
     extend Square::APIOperations::Delete
 
-    endpoint_base 'items'
+    endpoint_base 'items'    
     data_type Square::DataTypes::Item
 
     # Upload an image for an item.
