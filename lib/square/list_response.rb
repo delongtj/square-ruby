@@ -1,5 +1,7 @@
 module Square
-  class ListResponse < Array
+  class ListResponse
+    include Enumerable
+
     attr_accessor :response
 
     # RegExp used for parsing Link headers when the API paginates data. Don't
@@ -9,26 +11,22 @@ module Square
 
     # Initialize.
     #
-    # @param response [RestClient::Response]
+    # @param response [RestClient::Response] Raw resonse object.
     # @param data_type [Square::DataType] Data type to new up records.
     #
     # @return [ListResponse]
     def initialize(response, data_type)
       @response = response
       @data_type = data_type
-      super(parse_response)
+      @values = {}
+      parse_response(@response)
     end
 
-    # Parse the response.
+    # Each.
     #
-    # @return [Array, Hash] Parsed response.
-    def parse
-      begin
-        ::JSON.parse(@response)
-      rescue ::Exception => e
-        puts e.message
-        e
-      end
+    # @param block [Block]
+    def each(&block)
+      @values.each(&block)
     end
 
     # Get more records.
@@ -60,17 +58,17 @@ module Square
     # Parse a response.
     #
     # @return [Array] parsed records.
-    def parse_response
+    def parse_response(response)
       # Detect a Link header.
-      if @response.headers[:link].present?
-        match = LINK_REGEXP.match(@response.headers[:link])
+      if response.headers[:link].present?
+        match = LINK_REGEXP.match(response.headers[:link])
         @next_link = match.captures[0]
       else
         @next_link = nil
       end
 
-      parsed_response = JSON.parse(@response)
-      parsed_response.map {|record| @data_type.new(record)}
+      parsed_response = JSON.parse(response)
+      @values = parsed_response.map {|record| @data_type.new(record)}
     end
   end
 end
