@@ -59,6 +59,21 @@ module Square
       def variation
         self.variations.first
       end
+
+      def remove_fees(params = {})
+        fees.each do |fee|
+          remove_fee(fee.id, params)
+        end
+      end
+
+      def remove_fee(fee_id, params = {})
+        Square::Fee.remove(self.id, fee_id, params)
+      end
+
+      def apply_fee(fee_id, params = {})
+        Square::Fee.apply(self.id, fee_id, params)
+      end
+
     end
   end
 end

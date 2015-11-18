@@ -10,14 +10,25 @@ module Square
     endpoint_base 'fees'
     data_type Square::DataTypes::Fee
 
-    def self.apply(item_id, fee_id)
-      request = {
+    def self.apply(item_id, fee_id, params = {})
+      response = Square.make_request({
         method: 'PUT',
-        endpoint: "items/#{item_id}/fees/#{fee_id}"
-      }
+        endpoint: "items/#{item_id}/fees/#{fee_id}",
+        params: params
+      })
 
-      response = Square.make_request(request)
-      response = JSON.parse(response)
+      response = Square.parse_response(response)
+
+      Square::DataTypes::Item.new(response)
+    end
+
+    def self.remove(item_id, fee_id, params = {})
+      response = Square.make_request({
+        method: 'DELETE',
+        endpoint: "items/#{item_id}/fees/#{fee_id}",
+        params: params
+      })
+      response = Square.parse_response(response)
 
       Square::DataTypes::Item.new(response)
     end

@@ -131,6 +131,15 @@ module Square
     RestClient::Request.execute(request_params, &block)
   end
 
+  def self.parse_response(response)
+    begin
+      JSON.parse(response)
+    rescue RestClient::Exception => e
+      puts e.http_body
+      raise e
+    end
+  end
+
   # {
   #   method: "POST",
   #   path: "categories",
