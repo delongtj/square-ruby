@@ -17,7 +17,7 @@ module Square
           payload: params
         )
 
-        response = Square.parse_response(response)
+        Square.parse_response(response)
       end
     end
   end
