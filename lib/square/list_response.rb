@@ -60,9 +60,14 @@ module Square
     # @return [Array] parsed records.
     def parse_response(response)
       # Detect a Link header.
-      if response.headers[:link].present?
+      if !response.headers[:link].nil?
         match = LINK_REGEXP.match(response.headers[:link])
-        @next_link = match.captures[0]
+
+        if match.nil?
+          @next_link = nil
+        else
+          @next_link = match.captures[0]
+        end
       else
         @next_link = nil
       end
