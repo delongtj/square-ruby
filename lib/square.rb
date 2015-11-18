@@ -65,9 +65,11 @@ RestClient.log = Logger.new(STDOUT)
 module Square
   @api_host = 'https://connect.squareup.com'
   @access_token = nil
+  @api_version = 'v1'
+  @merchant_id = 'me'
 
   class << self
-    attr_accessor :api_host, :access_token
+    attr_accessor :api_host, :access_token, :api_version, :merchant_id
   end
 
   # Make an API call to Square.
@@ -93,7 +95,7 @@ module Square
     if !options[:url].nil?
       url = options[:url]
     else
-      merchant = options[:merchant] || 'me'
+      merchant = options[:merchant] || merchant_id
 
       # Special handling of the merchant param.
       if !options[:params].nil? && !options[:params][:merchant].nil?
@@ -104,7 +106,7 @@ module Square
         merchant = options[:payload].delete(:merchant)
       end
 
-      path_args = [api_host, 'v1', merchant, options[:endpoint]].compact
+      path_args = [api_host, api_version, merchant, options[:endpoint]].compact
       url = File.join(path_args)
     end
 
@@ -118,7 +120,7 @@ module Square
     # Merge in a payload hash.
     payload = options[:payload] || nil
 
-    if payload.present? && payload.respond_to?(:to_json)
+    if !payload.nil? && payload.respond_to?(:to_json) && !payload.empty?
       payload = payload.to_json
       request_params.merge!(payload: payload)
     end
@@ -126,14 +128,24 @@ module Square
     # Merge in a params hash.
     params = options[:params] || nil
 
-    if params.present? && !params.empty?
+    if !params.nil? && !params.empty?
       request_params[:headers].merge!(params: params)
     end
 
     # Perform the request.
-    RestClient::Request.execute(request_params, &block)
+    self.request(request_params, &block)
   end
 
+  # Request helper. Makes testing and switching out the http client easy.
+  def self.request(request, &block)
+    RestClient::Request.execute(request, &block)
+  end
+
+  # Parse a response.
+  #
+  # @param response [RestClient::Response]
+  #
+  # @return [#to_json]
   def self.parse_response(response)
     begin
       JSON.parse(response)
