@@ -1,7 +1,12 @@
 module Square
-  # Square Connect Items.
   # https://docs.connect.squareup.com/api/connect/v1/#navsection-itemmanagement
   class Item < APIResource
+    extend Square::APIOperations::List
+    extend Square::APIOperations::Retrieve
+    extend Square::APIOperations::Create
+    extend Square::APIOperations::Update
+    extend Square::APIOperations::Delete
+
     endpoint_base 'items'
     data_type Square::DataTypes::Item
 

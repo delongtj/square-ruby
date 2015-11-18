@@ -1,11 +1,5 @@
 module Square
   class APIResource
-    extend Square::APIOperations::List
-    extend Square::APIOperations::Retrieve
-    extend Square::APIOperations::Create
-    extend Square::APIOperations::Update
-    extend Square::APIOperations::Delete
-
     # Set a data_type property for this resource.
     def self.data_type(data_type)
       @data_type = data_type

@@ -1,7 +1,12 @@
 module Square
-  # Square Connect Fees.
   # https://docs.connect.squareup.com/api/connect/v1/#navsection-fees
   class Fee < APIResource
+    extend Square::APIOperations::List
+    extend Square::APIOperations::Retrieve
+    extend Square::APIOperations::Create
+    extend Square::APIOperations::Update
+    extend Square::APIOperations::Delete
+
     endpoint_base 'fees'
     data_type Square::DataTypes::Fee
 
