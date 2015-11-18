@@ -116,12 +116,32 @@ describe Square do
     end
   end
 
+  describe '.request' do
+  end
+
   describe '.parse_response' do
+    it 'should parse a json string' do
+      obj = {test: "value"}
+      resp = Square.parse_response(JSON.generate(obj))
+      expect(resp).to eq obj
+
+      # Make sure invalid json raises an error.
+      expect { Square.parse_response('what') }.to raise_error(JSON::ParserError)
+    end
   end
 
   describe '.batch' do
   end
 
   describe '.request_headers' do
+    it 'should return the default request headers' do
+      default_headers = {
+        authorization: "Bearer #{Square.access_token}",
+        accept: 'application/json',
+        content_type: 'application/json'
+      }
+
+      expect(Square.request_headers(Square.access_token)).to eq default_headers
+    end
   end
 end

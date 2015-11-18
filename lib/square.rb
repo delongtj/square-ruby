@@ -148,9 +148,9 @@ module Square
   # @return [#to_json]
   def self.parse_response(response)
     begin
-      JSON.parse(response)
+      JSON.parse(response, symbolize_names: true)
     rescue RestClient::Exception => e
-      puts e.http_body
+      puts e.http_body.inspect
       raise e
     end
   end
