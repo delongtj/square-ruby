@@ -11,14 +11,13 @@ module Square
       def delete(*args, params)
         id, parent_id = args
 
-        request = {
+        response = Square.make_request(
           method: 'DELETE',
           endpoint: self.generate_endpoint_url(id, parent_id),
           payload: params
-        }
+        )
 
-        response = Square.make_request(request)
-        response = JSON.parse(response)
+        response = Square.parse_response(response)
       end
     end
   end

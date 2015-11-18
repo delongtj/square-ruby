@@ -3,16 +3,17 @@ module Square
     module List
       # List resource.
       #
-      # @param params [Hash] Hash of query params.
+      # @param params [Hash] Hash of query params. Optional.
+      #
+      # @return [Square::ListResponse]
       def list(params = {})
-        request = {
+        # The list endpoint makes use of the ListResponse to handle paging.
+        response = Square.make_request(
           method: 'GET',
           endpoint: self.generate_endpoint_url,
           params: params
-        }
+        )
 
-        # The list endpoint makes use of the ListResponse to handle paging.
-        response = Square.make_request(request)
         Square::ListResponse.new(response, @data_type)
       end
     end
