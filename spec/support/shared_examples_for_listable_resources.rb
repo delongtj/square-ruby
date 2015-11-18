@@ -20,8 +20,8 @@ shared_examples 'a listable resource' do
         expect(request[:params]).to be_empty
       end
 
-      expect(Square::ListResponse).to have_received(:new) do |response, data_type|
-        expect(response).to eq response
+      expect(Square::ListResponse).to have_received(:new) do |resp, data_type|
+        expect(resp).to eq response
         expect(data_type).to eq subject.data_type
       end
     end
@@ -33,6 +33,16 @@ shared_examples 'a listable resource' do
 
       expect(Square::APIResource).to have_received(:generate_endpoint_url) do |*args|
         expect(args).to be_empty
+      end
+    end
+
+    it 'should allow for passed in params' do
+      params = {limit: 3}
+
+      subject.list(params)
+
+      expect(Square).to have_received(:make_request) do |request|
+        expect(request[:params]).to eq params
       end
     end
   end
