@@ -5,7 +5,7 @@ shared_examples 'an updatable resource' do
       allow(Square).to receive(:parse_response) { |*args| args.first[:params] }
     end
 
-    it 'shoud work' do
+    it 'shoud be defined' do
       expect(subject).to respond_to :update
     end
 
@@ -23,29 +23,6 @@ shared_examples 'an updatable resource' do
       expect(Square).to have_received(:make_request) do |request|
         expect(request[:method]).to eq 'PUT'
         expect(request[:endpoint]).to eq "#{subject.endpoint_base}/#{id}"
-        expect(request[:payload]).to eq params
-
-        # Assign the request back to params so we can test that parse_response
-        # got the arguments we expect.
-        params = request
-      end
-
-      expect(Square).to have_received(:parse_response) do |response|
-        expect(response).to eq params
-      end
-    end
-
-    it 'should make a request for an id and a parent_id' do
-      id = 'test-id'
-      parent_id = 'parent-id'
-      params = {test_key: 'test value'}
-
-      subject.update(id, parent_id, params)
-
-      expect(Square).to have_received(:make_request) do |request|
-        expect(request[:method]).to eq 'PUT'
-        # This is probably going to break when tested with something that set nested_under.
-        expect(request[:endpoint]).to eq "#{parent_id}/#{subject.endpoint_base}/#{id}"
         expect(request[:payload]).to eq params
 
         # Assign the request back to params so we can test that parse_response
