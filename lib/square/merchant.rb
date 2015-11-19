@@ -6,7 +6,11 @@ module Square
     data_type Square::DataTypes::Merchant
 
     def self.retrieve(merchant_id = nil)
-      response = Square.get(merchant_id)
+      response = Square.make_request(
+        merchant: merchant_id
+      )
+
+      response = Square.parse_response(response)
       @data_type.new(response)
     end
   end
