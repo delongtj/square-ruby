@@ -3,22 +3,32 @@ module Square
     module Update
       # Update a resource.
       #
-      # @param id [String] ID of the resource to update.
+      # @param id [String] ID of the resource to update. Required.
       # @param parent_id [String] ID of the 'parent' to update. Optional.
-      # @param params [Hash] Request params.
+      # @param params [Hash] Request params. Required.
       #
       # @return [Square::DataType]
-      def update(*args)
-        id = args[0]
+      def update(id, *args)
+        if args.count == 2
+          if !nested_under.nil?
+            parent_id = args[0]
+            params = args[1]
+          else
+            parent_id = nil
+            params = args[0]
+          end
+        else
+          if !nested_under.nil?
+            parent_id = args[0]
+            params = args[1]
+          else
+            parent_id = nil
+            params = args[0]
+          end
+        end
 
-        if args.count == 3
-          parent_id = args[1]
-          params = args[2]
-        elsif args.count == 2
-          parent_id = nil
-          params = args[1]
-        elsif
-          raise ArgumentError.new('`id` and `params` are required arguments.')
+        if params.nil?
+          raise ArgumentError.new("`params` is a required argument.")
         end
 
         response = Square.make_request(

@@ -8,8 +8,24 @@ module Square
       # @param params [Hash] Payload. Optional.
       #
       # @return [#to_json]
-      def delete(*args, params)
-        id, parent_id = args
+      def delete(id, *args)
+        if args.count == 2
+          parent_id = args[0]
+          params = args[1]
+        else
+          if !nested_under.nil?
+            parent_id = args[0]
+            params = nil
+          else
+            parent_id = nil
+            params = args[0]
+          end
+        end
+
+        # If this item is nested_under something, the parent_id is required.
+        if !nested_under.nil? && parent_id.nil?
+          raise ArgumentError.new("`parent_id` is required because this resource is nested under: #{nested_under}.")
+        end
 
         response = Square.make_request(
           method: 'DELETE',
