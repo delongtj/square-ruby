@@ -48,7 +48,7 @@ You'll now have an array of `Square::DataType::Item`s.
 
 Paging only works for `APIResource#list`.
 
-```
+```ruby
 resp = Square::Payment.list({limit: 10})
 resp.each {|p| puts p.id }
 
