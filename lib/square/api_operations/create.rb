@@ -16,6 +16,11 @@ module Square
           params = args[1]
         end
 
+        # If this item is nested_under something, the parent_id is required.
+        if !nested_under.nil? && parent_id.nil?
+          raise ArgumentError.new("parent_id is required because this resource is nested under: #{nested_under}.")
+        end
+
         response = Square.make_request(
           method: 'POST',
           endpoint: self.generate_endpoint_url(nil, parent_id),

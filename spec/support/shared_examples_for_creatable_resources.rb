@@ -5,7 +5,7 @@ shared_examples 'a creatable resource' do
       allow(Square).to receive(:parse_response) { |*args| args.first[:payload] }
     end
 
-    it 'shoud work' do
+    it 'shoud be defined' do
       expect(subject).to respond_to :create
     end
 
