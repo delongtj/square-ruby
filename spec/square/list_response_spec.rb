@@ -16,7 +16,7 @@ describe Square::ListResponse do
     resp = FakeResponse.new('[{"test": "value"}]')
     list = Square::ListResponse.new(resp, FakeDataType)
   }
-  
+
   it 'should have a LINK_REGEXP constant' do
     expect(Square::ListResponse::LINK_REGEXP).to be_a Regexp
   end
@@ -38,11 +38,14 @@ describe Square::ListResponse do
   end
 
   describe '#each' do
+    pending
   end
 
   describe '#more' do
+    pending
   end
 
   describe '#has_more?' do
+    pending
   end
 end
