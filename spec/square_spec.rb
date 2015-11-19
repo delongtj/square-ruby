@@ -128,6 +128,7 @@ describe Square do
   end
 
   describe '.request' do
+    xit 'needs specs' do; end
   end
 
   describe '.parse_response' do
@@ -142,6 +143,7 @@ describe Square do
   end
 
   describe '.batch' do
+    xit 'needs specs' do; end
   end
 
   describe '.request_headers' do
