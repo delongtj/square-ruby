@@ -7,8 +7,14 @@ module Square
       # @param params [Hash] Payload. Optional.
       #
       # @return [DataType]
-      def create(*args, params)
-        parent_id = args
+      def create(*args)
+        if args.count == 1
+          parent_id = nil
+          params = args[0]
+        elsif args.count == 2
+          parent_id = args[0]
+          params = args[1]
+        end
 
         response = Square.make_request(
           method: 'POST',

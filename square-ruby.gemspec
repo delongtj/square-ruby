@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "codeclimate-test-reporter"
+  spec.add_development_dependency "awesome_print"
 
   spec.add_runtime_dependency "hashie", "~> 3.4.3"
   spec.add_runtime_dependency "rest-client", "~> 1.8"
