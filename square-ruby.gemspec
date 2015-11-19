@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "square-ruby"
   spec.version       = Square::VERSION
   spec.authors       = ["Brian McAllister", "David Michael"]
-  spec.email         = ["brian@giantmachines.com"]
+  spec.email         = ["brian.mcallister@giantmachines.com"]
 
   spec.summary       = %q{Square Connect API}
   spec.description   = %q{Square Connect API}
