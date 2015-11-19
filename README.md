@@ -17,7 +17,8 @@ TODO:
 
 ## Documentation
 
-[Square Connect](https://docs.connect.squareup.com/)
+[Square Connect](https://docs.connect.squareup.com/)  
+[RubyDoc](http://www.rubydoc.info/github/giantmachines/square-ruby)
 
 ## Installation
 
