@@ -1,6 +1,6 @@
 # Square Connect API
 
-[![Code Climate](https://codeclimate.com/github/giantmachines/square-ruby/badges/gpa.svg)](https://codeclimate.com/github/giantmachines/square-ruby) [![Test Coverage](https://codeclimate.com/github/giantmachines/square-ruby/badges/coverage.svg)](https://codeclimate.com/github/giantmachines/square-ruby/coverage) [![Build Status](https://travis-ci.org/giantmachines/square-ruby.svg?branch=master)](https://travis-ci.org/giantmachines/square-ruby)
+[![Gem Version](https://badge.fury.io/rb/square-ruby.svg)](https://badge.fury.io/rb/square-ruby) [![Code Climate](https://codeclimate.com/github/giantmachines/square-ruby/badges/gpa.svg)](https://codeclimate.com/github/giantmachines/square-ruby) [![Test Coverage](https://codeclimate.com/github/giantmachines/square-ruby/badges/coverage.svg)](https://codeclimate.com/github/giantmachines/square-ruby/coverage) [![Build Status](https://travis-ci.org/giantmachines/square-ruby.svg?branch=master)](https://travis-ci.org/giantmachines/square-ruby)
 
 The Square Connect API gem provides access to the Square Connect API.
 
