@@ -78,6 +78,17 @@ describe Square do
       end
     end
 
+    it 'should always remove the merchant from params and payload' do
+      id = nil
+      Square.make_request(merchant: id, params: {merchant: id}, payload: {merchant: id})
+
+      expect(Square).to have_received(:request) do |request|
+        expect(request).not_to include(:merchant)
+        expect(request[:params]).not_to be
+        expect(request[:payload]).not_to be
+      end
+    end
+
     it 'should generate the correct default headers' do
       default_headers = Square.request_headers(Square.access_token)
       Square.make_request

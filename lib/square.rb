@@ -95,16 +95,16 @@ module Square
     if !options[:url].nil?
       url = options[:url]
     else
-      merchant = options[:merchant] || merchant_id
-
       # Special handling of the merchant param.
-      if !options[:params].nil? && !options[:params][:merchant].nil?
+      if !options[:params].nil? && options[:params].key?(:merchant)
         merchant = options[:params].delete(:merchant)
       end
 
-      if !options[:payload].nil? && !options[:payload][:merchant].nil?
+      if !options[:payload].nil? && options[:payload].key?(:merchant)
         merchant = options[:payload].delete(:merchant)
       end
+
+      merchant = merchant || merchant_id
 
       path_args = [api_host, api_version, merchant, options[:endpoint]].compact
       url = File.join(path_args)
