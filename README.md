@@ -6,12 +6,13 @@ The Square Connect API gem provides access to the Square Connect API.
 
 TODO:
 
+- [ ] Update RestClient.
 - [ ] Add all data types.  
 - [ ] Add all API resources.
-- [ ] OAuth  
-- [x] Batching
-- [x] Handle multi location
-- [ ] Employee management
+- [ ] OAuth.
+- [x] Batching.
+- [x] Handle multi location.
+- [ ] Employee management.
 - [ ] Register API?
 
 ## Documentation
