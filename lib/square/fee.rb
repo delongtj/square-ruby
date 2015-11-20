@@ -14,20 +14,18 @@ module Square
     #
     # @param item_id [String] Item ID.
     # @param fee_id [String] Fee ID.
-    # @param params [Hash] Params hash. Optional.
     #
     # @return [Square::DataType]
-    def self.apply(item_id, fee_id, params = {})
+    def self.apply(item_id, fee_id)
       response = Square.make_request(
         method: 'PUT',
-        endpoint: "items/#{item_id}/fees/#{fee_id}",
-        params: params
+        endpoint: File.join('items', item_id, @endpoint_base, fee_id)
       )
 
       response = Square.parse_response(response)
       Square::DataTypes::Item.new(response)
     end
-    
+
     # Adjust inventory for a varation.
     #
     # @param item_id [String] Item ID.
@@ -35,11 +33,10 @@ module Square
     # @param params [Hash] Params hash. Optional.
     #
     # @return [Square::DataType]
-    def self.remove(item_id, fee_id, params = {})
+    def self.remove(item_id, fee_id)
       response = Square.make_request(
         method: 'DELETE',
-        endpoint: "items/#{item_id}/fees/#{fee_id}",
-        params: params
+        endpoint: File.join('items', item_id, @endpoint_base, fee_id)
       )
 
       response = Square.parse_response(response)
