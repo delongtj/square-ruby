@@ -25,6 +25,7 @@ describe Square::Merchant do
       expect(Square).to have_received(:make_request) do |request|
         # This will be nil here because we're defaulting to a GET request.
         expect(request[:method]).to be_nil
+        expect(request[:merchant]).to eq merchant_id
         expect(request[:endpoint]).to be_nil
         expect(request[:payload]).to be_nil
         expect(request[:params]).to be_nil
