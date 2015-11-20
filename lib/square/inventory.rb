@@ -8,7 +8,7 @@ module Square
 
     # Adjust inventory for a varation.
     #
-    # @param variation_id [String] Variation ID.
+    # @param variation_id [String] Variation ID. Required.
     # @param params [Hash] Params hash. Optional.
     #
     # @return [Square::DataType]
