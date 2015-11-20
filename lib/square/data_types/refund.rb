@@ -26,6 +26,9 @@ module Square
       property :merchant_id
       property :refunded_processing_fee_money
       property :refunded_additive_tax_money
+
+      # fixes specs
+      property :id
     end
   end
 end
