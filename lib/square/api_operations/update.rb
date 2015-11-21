@@ -9,6 +9,7 @@ module Square
       #
       # @return [Square::DataType]
       def update(id, *args)
+        # TODO: This is truly insane and needs to be fixed.
         if args.count == 2
           if !nested_under.nil?
             parent_id = args[0]
@@ -38,6 +39,7 @@ module Square
         )
 
         response = Square.parse_response(response)
+
         @data_type.new(response)
       end
     end

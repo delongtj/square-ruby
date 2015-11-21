@@ -2,7 +2,7 @@ shared_examples 'an updatable resource' do
   describe '.update' do
     before do
       allow(Square).to receive(:make_request) { |*args| args.first }
-      allow(Square).to receive(:parse_response) { |*args| args.first[:params] }
+      allow(Square).to receive(:parse_response) { |*args| args.first[:params] || args.first[:payload] }
     end
 
     it 'shoud be defined' do
@@ -16,7 +16,14 @@ shared_examples 'an updatable resource' do
 
     it 'should make a request for a single id' do
       id = 'test-id'
-      params = {test_key: 'test value'}
+
+      # Detect the expected data type of the subject.
+      # TODO: Accomodates for the webhook spec.
+      if subject.data_type == Array
+        params = ['TEST']
+      else
+        params = {test_key: 'test value'}
+      end
 
       subject.update(id, params)
 
