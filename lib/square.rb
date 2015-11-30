@@ -100,8 +100,10 @@ module Square
         merchant = options[:params].delete(:merchant)
       end
 
-      if !options[:payload].nil? && options[:payload].key?(:merchant)
+      if !options[:payload].nil? && options[:payload].is_a?(Hash) && options[:payload].key?(:merchant)
         merchant = options[:payload].delete(:merchant)
+      else
+        merchant = options[:merchant]
       end
 
       merchant = merchant || merchant_id

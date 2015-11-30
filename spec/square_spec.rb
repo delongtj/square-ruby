@@ -117,6 +117,29 @@ describe Square do
       end
     end
 
+    it 'should allow a non-hash payload' do
+      payload = ['TEST_PAYLOAD']
+      Square.make_request(payload: payload)
+
+      expect(Square).to have_received(:request) do |request|
+        parsed_payload = JSON.parse(request[:payload])
+        expect(parsed_payload).to eq JSON.parse(JSON.generate(payload))
+      end
+    end
+
+    it 'should allow merchant to be passed as key in options if payload is not hash' do
+      payload = ['TEST_PAYLOAD']
+      merchant = 'merchant'
+      Square.make_request(payload: payload, merchant: merchant)
+
+      expect(Square).to have_received(:request) do |request|
+        parsed_payload = JSON.parse(request[:payload])
+        expect(parsed_payload).to eq JSON.parse(JSON.generate(payload))
+        parsed_url = request[:url]
+        expect(parsed_url).to include(merchant)
+      end
+    end
+
     it 'should allow a custom params' do
       params = {test: 'value'}
       Square.make_request(params: params)
