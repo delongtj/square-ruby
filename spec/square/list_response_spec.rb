@@ -1,19 +1,21 @@
 require 'spec_helper'
 
 describe Square::ListResponse do
-  let(:list) {
-    # Fake out a RestClient::Response
-    class FakeResponse < String
-      def headers
-        {link: 'a link'}
-      end
+  class FakeResponse < String
+    def headers
+      {link: 'a link'}
     end
+  end
 
+  let(:resp) {
+    FakeResponse.new('[{"test": "value"}]')
+  }
+
+  let(:list) {
     class FakeDataType < Square::DataType
       property :test
     end
 
-    resp = FakeResponse.new('[{"test": "value"}]')
     list = Square::ListResponse.new(resp, FakeDataType)
   }
 
@@ -38,14 +40,49 @@ describe Square::ListResponse do
   end
 
   describe '#each' do
-    pending
+    it 'should iterate' do
+      expect(list.count).to eq 1
+
+      list.each do |item|
+        expect(item['test']).to eq 'value'
+      end
+    end
   end
 
   describe '#more' do
-    pending
+    it 'should return nil if there are no more pages' do
+      allow(list).to receive(:has_more?) { false }
+      expect(list.more).to be_nil
+    end
+
+    it 'should return a new list response if there are more pages' do
+      allow(list).to receive(:has_more?) { true }
+      allow(Square).to receive(:make_request) { FakeResponse.new('[{"paged": "value"}]') }
+      expect(list.more).to be_a Square::ListResponse
+    end
   end
 
   describe '#has_more?' do
-    pending
+    it 'should return false if next_link is nil' do
+      expect(list.has_more?).to be false
+    end
+
+    it 'should return false if next_link is not nil' do
+      class TestListResponse < Square::ListResponse
+        attr_accessor :next_link
+        def initialize; end
+      end
+      
+      list_resp = TestListResponse.new
+      list_resp.next_link = 'adsf'
+      expect(list_resp.has_more?).to be true
+    end
+  end
+
+  describe '#method_missing' do
+    it 'should call through to the underlying response object' do
+      allow(resp).to receive(:code) { 200 }
+      expect(list.code).to eq 200
+    end
   end
 end

@@ -2,7 +2,7 @@ module Square
   class ListResponse
     include Enumerable
 
-    attr_accessor :response
+    attr_accessor :response, :next_link
 
     # RegExp used for parsing Link headers when the API paginates data. Don't
     # care about rel attributes right now because this is the only thing this is
