@@ -102,7 +102,9 @@ module Square
 
       if !options[:payload].nil? && options[:payload].is_a?(Hash) && options[:payload].key?(:merchant)
         merchant = options[:payload].delete(:merchant)
-      else
+      end
+
+      if !options[:merchant].nil?
         merchant = options[:merchant]
       end
 
