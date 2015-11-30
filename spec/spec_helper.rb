@@ -3,6 +3,7 @@ CodeClimate::TestReporter.start
 
 require 'square'
 require 'ap'
+require 'webmock/rspec'
 
 Square.access_token = 'whatever man'
 
