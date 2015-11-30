@@ -153,8 +153,8 @@ module Square
   def self.parse_response(response)
     begin
       JSON.parse(response, symbolize_names: true)
-    rescue RestClient::Exception => e
-      Logger.new(STDOUT).error(e.http_body)
+    rescue JSON::ParserError => e
+      Logger.new(STDOUT).error(e.message)
       raise e
     end
   end
