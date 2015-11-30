@@ -16,10 +16,11 @@ module Square
     # @param fee_id [String] Fee ID.
     #
     # @return [Square::DataType]
-    def self.apply(item_id, fee_id)
+    def self.apply(item_id, fee_id, params = {})
       response = Square.make_request(
         method: 'PUT',
-        endpoint: File.join('items', item_id, @endpoint_base, fee_id)
+        endpoint: File.join('items', item_id, @endpoint_base, fee_id),
+        params: params
       )
 
       response = Square.parse_response(response)
@@ -33,10 +34,11 @@ module Square
     # @param params [Hash] Params hash. Optional.
     #
     # @return [Square::DataType]
-    def self.remove(item_id, fee_id)
+    def self.remove(item_id, fee_id, params = {})
       response = Square.make_request(
         method: 'DELETE',
-        endpoint: File.join('items', item_id, @endpoint_base, fee_id)
+        endpoint: File.join('items', item_id, @endpoint_base, fee_id),
+        params: params
       )
 
       response = Square.parse_response(response)
