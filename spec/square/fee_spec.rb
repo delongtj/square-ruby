@@ -18,6 +18,7 @@ describe Square::Fee do
       expect { subject.apply }.to raise_error ArgumentError
       expect { subject.apply('item-id') }.to raise_error ArgumentError
       expect { subject.apply('item-id', 'fee-id') }.not_to raise_error
+      expect { subject.apply('item-id', 'fee-id', {}) }.not_to raise_error
     end
 
     it 'should apply a fee' do
@@ -25,14 +26,14 @@ describe Square::Fee do
       fee_id = 'fee-id'
       params = {}
 
-      item = subject.apply(item_id, fee_id)
+      item = subject.apply(item_id, fee_id, params)
       expect(item).to be_a Square::DataTypes::Item
 
       expect(Square).to have_received(:make_request) do |request|
         expect(request[:method]).to eq 'PUT'
         expect(request[:endpoint]).to eq File.join 'items', item_id, 'fees', fee_id
         expect(request[:payload]).to be_nil
-        expect(request[:params]).to be_nil
+        expect(request[:params]).to be params
 
         # Assign the request back to params so we can test that parse_response
         # got the arguments we expect.
@@ -55,6 +56,7 @@ describe Square::Fee do
       expect { subject.remove }.to raise_error ArgumentError
       expect { subject.remove('item-id') }.to raise_error ArgumentError
       expect { subject.remove('item-id', 'fee-id') }.not_to raise_error
+      expect { subject.remove('item-id', 'fee-id', {}) }.not_to raise_error
     end
 
     it 'should apply a fee' do
@@ -62,14 +64,14 @@ describe Square::Fee do
       fee_id = 'fee-id'
       params = {}
 
-      item = subject.remove(item_id, fee_id)
+      item = subject.remove(item_id, fee_id, params)
       expect(item).to be_a Square::DataTypes::Item
 
       expect(Square).to have_received(:make_request) do |request|
         expect(request[:method]).to eq 'DELETE'
         expect(request[:endpoint]).to eq File.join 'items', item_id, 'fees', fee_id
         expect(request[:payload]).to be_nil
-        expect(request[:params]).to be_nil
+        expect(request[:params]).to be params
 
         # Assign the request back to params so we can test that parse_response
         # got the arguments we expect.
