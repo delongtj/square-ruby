@@ -6,8 +6,10 @@ require 'square/version'
 Gem::Specification.new do |spec|
   spec.name          = 'square-ruby'
   spec.version       = Square::VERSION
-  spec.authors       = ['Brian Wm. McAllister', 'David Michael', 'Brianne King']
-  spec.email         = ['brian.mcallister@giantmachines.com', 'david.michael@giantmachines.com', 'brianne.king@giantmachines.com']
+  spec.authors       = ["Brian McAllister", "Brianne King", "David Michael"]
+  spec.email         = ["brian@brianmcallister.com", "brianneking86@gmail.com", "david.michael@giantmachines.com"]
+  # spec.authors       = `git shortlog -s | cut -f2 | tr '\n', ','`.split(',')
+  # spec.email         = `git shortlog -se | cut -f2 | awk '{print $3}' | sed 's/[<>]//g' | tr '\n', ','`.split(',')
 
   spec.summary       = 'Square Connect API library'
   spec.description   = 'Square Connect API'

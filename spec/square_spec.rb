@@ -151,7 +151,12 @@ describe Square do
   end
 
   describe '.request' do
-    pending
+    it 'should call through to the http client' do
+      params = {test_key: 'test_value'}
+      allow(RestClient::Request).to receive(:execute)
+      Square.request(params)
+      expect(RestClient::Request).to have_received(:execute).with(params)
+    end
   end
 
   describe '.parse_response' do
@@ -162,6 +167,13 @@ describe Square do
 
       # Make sure invalid json raises an error.
       expect { Square.parse_response('what') }.to raise_error(JSON::ParserError)
+    end
+
+    it 'should log and raise an error when theres invalid json' do
+      logger = double('Logger', error: 'what')
+      allow(Logger).to receive(:new).and_return logger
+      expect { Square.parse_response('what') }.to raise_error JSON::ParserError
+      expect(logger).to have_received(:error)
     end
   end
 
